@@ -1,34 +1,36 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthserviceService } from '../../services/authservice.service';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule,FormBuilder,FormGroup,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  username = "";
-  password = "";
-  errorMsg = "";
-  constructor(private auth:AuthserviceService,private router:Router){}
-  login(){
-    if(this.username.trim().length===0){
-      this.errorMsg="UserName is Required"
-    }else if(this.password.trim().length===0){
-      this.errorMsg="Password is required"
-    }else{
-      this.errorMsg="";
-      let res=this.auth.login(this.username,this.password);
-      if(res===200){
-        this.router.navigate(['home'])
-      }
-      if(res==403){
-        this.errorMsg="Invalid Credentials"
-      }
-    }
+ loginForm:FormGroup;
+ errorMsg='';
+ constructor(private fb:FormBuilder,private auth:AuthserviceService,private router:Router){
+  this.loginForm=this.fb.group({
+    username:['',Validators.required],
+    password:['',Validators.required]
+  })
+ }
+ login(){
+  if(this.loginForm.invalid){
+    this.errorMsg="All fields are required";
+    return;
   }
+  const{username,password}=this.loginForm.value;
+  this.errorMsg='';
+  let res=this.auth.login(username,password);
+  if(res===200){
+    this.router.navigate(['home']);
+  }else if(res===403){
+    this.errorMsg='Invalid credentials'
+  }
+ }
 }

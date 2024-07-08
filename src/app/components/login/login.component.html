@@ -1,18 +1,22 @@
-<div class="class login-container">
+<div class="login-container">
     <img class="film" src="../../assets/images/coffee-shop.avif" alt="">
     <div class="logo">Welcome to Perk Me Up Café!</div>
-    <div class="desc">Our coffee is as strong as your will to hit snooze. Need a jolt or an excuse to dodge awkward conversations? We’ve got you covered. Sip on perfection, enjoy some coffee art, and leave with a smile – and maybe a pastry or two.</div>
-    <div class="login-form">
-        <div class="form-group">
-            <label for="uname">UserName</label>
-            <input type="text" name="uname"  class="form-control" [(ngModel)]="username">
-        </div>
-        <div class="form-group">
-            <label for="password">password</label>
-            <input type="password" name="password"class="form-control" [(ngModel)]="password">
-        </div>
-        <div class="btn-container">
-            <div class="error">{{errorMsg}}</div>
-            <button class="btn btn-dark" (click)="login()">Login</button>
+    <div class="desc">
+      Our coffee is as strong as your will to hit snooze. Need a jolt or an excuse to dodge awkward conversations? We’ve got you covered. Sip on perfection, enjoy some coffee art, and leave with a smile – and maybe a pastry or two.
     </div>
-</div>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <div class="form-group">
+        <label for="uname">UserName</label>
+        <input type="text" id="uname" formControlName="username" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" class="form-control">
+      </div>
+      <div class="btn-container">
+        <div class="error">{{ errorMsg }}</div>
+        <button type="submit" class="btn btn-dark">Login</button>
+      </div>
+    </form>
+  </div>
+  

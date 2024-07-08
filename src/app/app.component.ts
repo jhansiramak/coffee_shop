@@ -4,6 +4,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { NavComponent } from "./components/nav/nav.component";
 import { CenterComponent } from "./components/center/center.component";
 import { FooterComponent } from "./components/footer/footer.component";
+import { HomeComponent } from './components/home/home.component';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { FooterComponent } from "./components/footer/footer.component";
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, LoginComponent, NavComponent, CenterComponent, FooterComponent]
+    imports: [RouterOutlet]
 })
 export class AppComponent {
   title = 'coffeemaker';
